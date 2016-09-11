@@ -1,0 +1,6 @@
+*.elf
+.idea
+*.bin
+*.o
+*.ld
+*.map
