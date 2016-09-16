@@ -16,20 +16,19 @@ CONSOLE_BAUDRATE  ?= 9600
 STACK_SIZE        ?= 81920
 HEAP              ?= BMPTK
 
-# use the rtos
-SEARCH            += ../rtos/
-HEADERS           += ../rtos/coroutine.hpp ../rtos/switch_to.hpp
-SOURCES           += ../rtos/coroutine.cpp ../rtos/switch_to.asm
-HEADERS           += ../rtos/rtos.hpp
-SOURCES           += ../rtos/rtos.cpp
-
 # use hwlib
 SEARCH            += ../hwlib
 SOURCES           += ../hwlib/hwlib.cpp
 
 HEADERS 		  += player.h lsp_player.h song_player.h
 
-song 			  = assets/rem-loosingmyreligion.txt
+song 			  = assets/ymca.txt
+#song 			  = Poison:d=4,o=5,b=112:8d,8d,8a,8d,8e6,8d,8d6,8d,8f\#,8g,8c6,8f\#,8g,8c6,8e,8d,8d,8d,8a,8d,8e6,8d,8d6,8d,8f\#,8g,8c6,8f\#,8g,8c6,8e,8d,8c,8d,8a,8d,8e6,8d,8d6,8d,8f\#,8g,8c6,8f\#,8g,8c6,8e,8d,8c,8d,8a,8d,8e6,8d,8d6,8d,8a,8d,8e6,8d,8d6,8d,2a,8d
+
+clean: project
+
+project:
+	rm *.o
 
 build: generate decode
 

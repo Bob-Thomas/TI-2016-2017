@@ -181,6 +181,8 @@ int main(int argc, char *argv[]) {
     }
     f.close();
     title = decode(song.c_str(), notes);
+    cout << song << "\n";
+    cout << notes.size() << "\n";
     writeFile(title, notes);
     return 0;
 }
