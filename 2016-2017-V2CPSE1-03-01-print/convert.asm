@@ -29,17 +29,16 @@ lowerZCheck:
 @COMPILER SOLUTION
 @convert:
 @	mov R2, #'A'
-@	sub	r1, R0, R2
-@	cmp r0, #'Z'
-@	bgt .upper
+@	sub r1, R0, R2
+@	cmp r1, #25 
+@	bhi .upper
 @	add r0, r0, #('a' - 'A')
-@	b	.return
+@	b .return
 @.upper:
 @	mov R2, #'a'
-@	sub	r1, R0, r2
-@	uxtb r1, r1
+@	sub r1, R0, r2
 @	cmp R1, #25
-@	bgt .return
+@	bhi .return
 @	sub	r0, r0, #('a' - 'A')
 @.return:
 @	bx lr
