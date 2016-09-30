@@ -1,6 +1,6 @@
-   .cpu cortex-m0
+1   .cpu cortex-m0
    .text
-   .align 2
+   .align 1
    .global print_asciz
 
 print_asciz:

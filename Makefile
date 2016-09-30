@@ -1,6 +1,6 @@
 #############################################################################
 #
-# makefile.due common settings for Arduino Due projects
+# Project Makefile
 #
 # (c) Wouter van Ooijen (www.voti.nl) 2016
 #
@@ -8,26 +8,17 @@
 # 
 #############################################################################
 
-# settings for Arduino Due projects
-TARGET            ?= arduino_due
-SERIAL_PORT       ?= COM2
-CONSOLE_BAUDRATE  ?= 38400
-STACK_SIZE        ?= 81920
-HEAP              ?= BMPTK
+# source files in this project (main.cpp is automatically assumed)
+SOURCES :=
 
-# use hwlib
-SEARCH            += hwlib
-SOURCES           += hwlib/hwlib.cpp
+# header files in this project
+HEADERS :=
 
-# use the rtos
-SEARCH            += rtos/
-HEADERS           += rtos/coroutine.hpp rtos/switch_to.hpp
-SOURCES           += rtos/coroutine.cpp rtos/switch_to.asm
-HEADERS           += rtos/rtos.hpp
-SOURCES           += rtos/rtos.cpp
+# other places to look for files for this project
+SEARCH  := 
 
-# set BMPTK to the bmptk subdirectory
-BMPTK := $(BMPTK)bmptk/
+RESULTS := main.lst main.lss 
 
-# Defer to the bmptk/Makefile.inc to do the work
-include $(BMPTK)Makefile.inc
+# set BMPTK to the next higher directory and defer to the Makefile.due
+BMPTK := $(BMPTK)../
+include $(BMPTK)Makefile.due

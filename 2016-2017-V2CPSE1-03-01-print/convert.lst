@@ -1,0 +1,22 @@
+# 1 "convert.asm"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "convert.asm"
+   .cpu cortex-m0
+   .text
+   .align 1
+   .global convert
+
+convert:
+    .LFB1:
+     leal -65(%rdi), %eax
+     cmpb $25, %al
+     ja .L3
+     leal 32(%rdi), %eax
+     ret
+    .L3:
+     leal -97(%rdi), %edx
+     leal -32(%rdi), %eax
+     cmpb $25, %dl
+     cmova %edi, %eax
+     ret
