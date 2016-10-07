@@ -48,8 +48,21 @@ TEST_CASE("+= operator with a template_string") {
     CHECK(strcmp(string.c_str(), "testwuff") == 0);
 }
 
+TEST_CASE("+ operator with a template_string") {
+    template_string<10> string("test");
+    template_string<10> string1("wuff");
+    string = string + string1;
+    CHECK(strcmp(string.c_str(), "testwuff") == 0);
+}
+
 
 TEST_CASE("+= operator with a single char") {
+    template_string<5> string("test");
+    string += 'a';
+    CHECK(strcmp(string.c_str(), "testa") == 0);
+}
+
+TEST_CASE("+= operator with a  char pointer") {
     template_string<5> string("test");
     string += "a";
     CHECK(strcmp(string.c_str(), "testa") == 0);

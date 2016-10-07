@@ -36,8 +36,9 @@ class template_string {
         }
 
         // Literal string constructor.
-        template_string(const char *literal_string) : legit_chars(max_chars) {
+        template_string(const char *literal_string) {
             strncpy(string, literal_string, sizeof(string));
+            legit_chars = length();
         };
 
         // Functions
@@ -48,7 +49,7 @@ class template_string {
         }
 
         // Loop till the zero terminator is reached
-        int length() const {
+        int length()const {
             return strlen(string);
         }
 
@@ -67,17 +68,17 @@ class template_string {
             return string[ i ];
         }
 
-        // += Operator with other home made string class
         template_string &operator+=(const template_string &rhs) {
-
-            const int original_length = length();
-
-            if(rhs.length() > max_chars) {
-                cout << "index out of bounds\n";
+            for (int i = 0; i <= rhs.length(); i++) {
+                *this += rhs[i];
             }
 
-            for (int i = 0; i <= rhs.length(); i++) {
-                string[i + original_length] = rhs[i];
+            return *this;
+        }
+
+        template_string &operator+=(const char* rhs) {
+            for (int i = 0; i <= (int)strlen(rhs); i++) {
+                *this += rhs[i];
             }
 
             return *this;
@@ -86,13 +87,19 @@ class template_string {
 
         // += Operator for single char
         template_string &operator+=(const char c) {
-            int original_length = length();
-            if(original_length+1 > max_chars) {
-                cout << "index out of bounds\n";
+            if(length()+1 <= max_chars) {
+                string[legit_chars++] = c;
             }
-            string[original_length+1] = c;
             return *this;
         }
+
+        template_string &operator+(const template_string &rhs) {
+            template_string<max_chars> new_string;
+            *this += rhs;
+            return *this;
+        }
+
+
 
         template_string &operator<<(const char* c) {
             return *this += c;
