@@ -21,22 +21,15 @@ class template_string {
         char string[max_chars+1] = {0};;
 
         void check( int i )const {
-            if (( i < 0 ) || ( i >= length() )){
+            if (( i < 0 ) || ( i > length() )){
                 cout << "Index out of bounds!\n";
             }
-        }
-
-        friend ostream &operator<<(ostream &lhs, const template_string &rhs) {
-            for(int i = 0; i < rhs.length(); i++) {
-                lhs << rhs[i];
-            }
-            return lhs;
         }
 
     public:
 
         // CONSTRUCTORS
-       template_string(): legit_chars(max_chars){};
+       template_string() = default;
         // Copy constructor. Getting from reference
         template_string(const template_string &copy): legit_chars(copy.legit_chars) {
             strncpy(string, copy.string, sizeof(copy.string));
@@ -101,8 +94,18 @@ class template_string {
             return *this;
         }
 
+        template_string &operator<<(const char* c) {
+            return *this += c;
+        }
 
+        ~template_string() = default;
 
+};
+
+template<typename ret, int max_chars>
+    ret &operator<<(ret &stream, const template_string<max_chars> &string) {
+        stream << string.c_str();
+        return stream;
 };
 
 #endif //TI_2016_2017_TEMPLATE_STRING_H
