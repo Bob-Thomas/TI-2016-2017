@@ -21,30 +21,24 @@ class template_string {
         char string[max_chars+1] = {0};;
 
         void check( int i )const {
-            if (( i < 0 ) || ( i >= length() )){
+            if (( i < 0 ) || ( i > length() )){
                 cout << "Index out of bounds!\n";
             }
-        }
-
-        friend ostream &operator<<(ostream &lhs, const template_string &rhs) {
-            for(int i = 0; i < rhs.length(); i++) {
-                lhs << rhs[i];
-            }
-            return lhs;
         }
 
     public:
 
         // CONSTRUCTORS
-       template_string(): legit_chars(max_chars){};
+       template_string() = default;
         // Copy constructor. Getting from reference
         template_string(const template_string &copy): legit_chars(copy.legit_chars) {
             strncpy(string, copy.string, sizeof(copy.string));
         }
 
         // Literal string constructor.
-        template_string(const char *literal_string) : legit_chars(max_chars) {
+        template_string(const char *literal_string) {
             strncpy(string, literal_string, sizeof(string));
+            legit_chars = length();
         };
 
         // Functions
@@ -55,7 +49,7 @@ class template_string {
         }
 
         // Loop till the zero terminator is reached
-        int length() const {
+        int length()const {
             return strlen(string);
         }
 
@@ -74,17 +68,17 @@ class template_string {
             return string[ i ];
         }
 
-        // += Operator with other home made string class
         template_string &operator+=(const template_string &rhs) {
-
-            const int original_length = length();
-
-            if(rhs.length() > max_chars) {
-                cout << "index out of bounds\n";
+            for (int i = 0; i <= rhs.length(); i++) {
+                *this += rhs[i];
             }
 
-            for (int i = 0; i <= rhs.length(); i++) {
-                string[i + original_length] = rhs[i];
+            return *this;
+        }
+
+        template_string &operator+=(const char* rhs) {
+            for (int i = 0; i <= (int)strlen(rhs); i++) {
+                *this += rhs[i];
             }
 
             return *this;
@@ -93,16 +87,32 @@ class template_string {
 
         // += Operator for single char
         template_string &operator+=(const char c) {
-            int original_length = length();
-            if(original_length+1 > max_chars) {
-                cout << "index out of bounds\n";
+            if(length()+1 <= max_chars) {
+                string[legit_chars++] = c;
             }
-            string[original_length+1] = c;
+            return *this;
+        }
+
+        template_string &operator+(const template_string &rhs) {
+            template_string<max_chars> new_string;
+            *this += rhs;
             return *this;
         }
 
 
 
+        template_string &operator<<(const char* c) {
+            return *this += c;
+        }
+
+        ~template_string() = default;
+
+};
+
+template<typename ret, int max_chars>
+    ret &operator<<(ret &stream, const template_string<max_chars> &string) {
+        stream << string.c_str();
+        return stream;
 };
 
 #endif //TI_2016_2017_TEMPLATE_STRING_H
