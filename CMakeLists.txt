@@ -8,3 +8,6 @@ include_directories(hwlib)
 
 set(SOURCE_FILES Catch/include/catch_with_main.hpp template_string/main.cpp template_string/template_string.h template_string/catch_include.h)
 add_executable(template_string ${SOURCE_FILES})
+
+set(SOURCE_FILES 2016-2017-V2CPSE1-06-91-compressor/main.cpp)
+add_executable(compressor ${SOURCE_FILES})

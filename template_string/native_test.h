@@ -51,8 +51,10 @@ TEST_CASE("+= operator with a template_string") {
 TEST_CASE("+ operator with a template_string") {
     template_string<10> string("test");
     template_string<10> string1("wuff");
-    string = string + string1;
-    CHECK(strcmp(string.c_str(), "testwuff") == 0);
+    template_string<10> dave = string + string1;
+    CHECK(strcmp(string.c_str(), "test") == 0);
+    CHECK(strcmp(string1.c_str(), "wuff") == 0);
+    CHECK(strcmp(dave.c_str(), "testwuff") == 0);
 }
 
 
@@ -75,10 +77,17 @@ TEST_CASE("<< operator stream") {
     CHECK(strcmp(stream.str().c_str(), "test") == 0);
 }
 
-TEST_CASE("<< operator char") {
+TEST_CASE("<< operator char*") {
     template_string<5> string("test");
     string << "a";
     CHECK(strcmp(string.c_str(), "testa") == 0);
 }
+
+TEST_CASE("<< operator char* overflow") {
+    template_string<5> string("test");
+    string << "arf";
+    CHECK(strcmp(string.c_str(), "testa") == 0);
+}
+
 
 #endif //TI_2016_2017_NATIVE_TEST_H

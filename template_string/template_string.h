@@ -93,10 +93,9 @@ class template_string {
             return *this;
         }
 
-        template_string &operator+(const template_string &rhs) {
-            template_string<max_chars> new_string;
-            *this += rhs;
-            return *this;
+        friend template_string operator+(template_string lhs, const template_string& rhs) {
+            lhs += rhs;
+            return lhs;
         }
 
 

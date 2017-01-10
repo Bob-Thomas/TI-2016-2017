@@ -43,12 +43,12 @@ private:
    T values[ N ];
 public: 
    template< typename F >
-   constexpr lookup( F function ){
+   static constexpr lookup( F function ){
       for( int i = 0; i < N; ++i ){
           values[ i ] = function( i );
       }
    }
-   constexpr T get( int n ) const {
+   static constexpr T get( int n ) const {
       return values[ n ];    
    }
 };
